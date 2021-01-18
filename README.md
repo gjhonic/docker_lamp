@@ -1,4 +1,4 @@
-# Docker LAMP
+# Docker LNMP
 
 - Nginx
 - PHP
