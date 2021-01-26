@@ -30,24 +30,30 @@ services:
             - "9000:9000"
         volumes:
             - ./app:/var/www/project
+        depends_on:
+            - db
         networks:
             - nginx-php74-mysql8-node
 
     db:
-      image: mariadb:10.3
-      restart: always
-      environment:
-        MYSQL_DATABASE: test
-        MYSQL_USER: test
-        MYSQL_PASSWORD: 1111
-        MYSQL_ROOT_PASSWORD: 1234
+        image: mariadb:10.3
+        restart: always
+        environment:
+            MYSQL_DATABASE: test
+            MYSQL_USER: test
+            MYSQL_PASSWORD: 1111
+            MYSQL_ROOT_PASSWORD: rootpass
+        networks:
+            - nginx-php74-mysql8-node
 
 
     phpmyadmin:
-      image: phpmyadmin
-      restart: always
-      ports:
-        - "1234:80"
-      environment:
-        PMA_ARBITRARY: 1
-        PMA_HOST: db
+        image: phpmyadmin
+        restart: always
+        ports:
+            - "1234:80"
+        environment:
+            PMA_ARBITRARY: 1
+            PMA_HOST: db
+        networks:
+            - nginx-php74-mysql8-node
